@@ -281,6 +281,33 @@ footer .credits a { color: inherit; }
 .hero .wrap { position: relative; z-index: 1; }
 @media (max-width: 55rem) { .hero { background: var(--hero-veil-sm), var(--photo) center / cover no-repeat; } }
 
+/* Hero showcase: bento product grid + who we supply */
+.showcase { display: flex; flex-direction: column; gap: 0.875rem; min-width: 0; }
+.bento { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 9.5rem 9.5rem 8.5rem; grid-template-areas: "m m t" "m m w" "g c c"; gap: 0.75rem; }
+.bt { position: relative; display: block; overflow: hidden; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, .12); background: var(--surface); box-shadow: 0 1.25rem 2.5rem -1.5rem rgba(0, 0, 0, .7); isolation: isolate; }
+.bt img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2, .7, .2, 1); }
+.bt::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 17, 26, 0) 35%, rgba(7, 17, 26, .88) 100%); z-index: 0; }
+.bt:hover img { transform: scale(1.07); }
+.b-m { grid-area: m; } .b-t { grid-area: t; } .b-w { grid-area: w; } .b-g { grid-area: g; } .b-c { grid-area: c; }
+.bt-label { position: absolute; left: 0.75rem; right: 0.75rem; bottom: 0.75rem; z-index: 1; display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; color: #ffffff; }
+.bt-label b { display: block; font: 700 1rem/1.15 var(--display); letter-spacing: -0.01em; }
+.bt-label small { display: block; margin-top: 0.25rem; font: 500 0.6875rem/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: rgba(255, 255, 255, .72); }
+.bt-label i { flex: none; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; background: #f4a62a; color: #1b1203; transition: transform .25s ease; }
+.bt-label i svg { width: 1rem; height: 1rem; }
+.bt:hover .bt-label i { transform: rotate(45deg); }
+.b-m .bt-label b { font-size: 1.5rem; }
+.b-t .bt-label small, .b-w .bt-label small { display: none; }
+.b-m .bt-label { left: 1.125rem; right: 1.125rem; bottom: 1.125rem; }
+.b-m::before { content: "Featured"; position: absolute; top: 0.875rem; left: 0.875rem; z-index: 1; font: 700 0.6875rem/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 0.4375rem 0.625rem; border-radius: 999px; background: rgba(7, 17, 26, .55); color: #ffffff; border: 1px solid rgba(255, 255, 255, .2); backdrop-filter: blur(6px); }
+.clients { border-radius: 1.25rem; padding: 0.875rem 1rem; background: color-mix(in srgb, var(--surface) 72%, transparent); border: 1px solid var(--line); backdrop-filter: blur(10px); }
+.clients-title { font: 600 0.6875rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.625rem; }
+.clients ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.clients li { display: inline-flex; align-items: center; gap: 0.4375rem; padding: 0.4375rem 0.75rem 0.4375rem 0.5625rem; border-radius: 999px; background: rgba(79, 184, 234, .1); border: 1px solid rgba(79, 184, 234, .22); font-weight: 600; font-size: 0.875rem; color: var(--ink); }
+.clients li svg { width: 1.125rem; height: 1.125rem; color: var(--blue); flex: none; }
+@media (max-width: 55rem) { .bento { grid-template-rows: 10rem 10rem 8rem; } }
+@media (max-width: 30rem) { .bento { grid-template-columns: 1fr 1fr; grid-template-rows: 12rem 8.5rem 8.5rem; grid-template-areas: "m m" "t w" "g c"; } .b-m .bt-label b { font-size: 1.25rem; } .bt-label b { font-size: 0.9375rem; } .bt-label small { display: none; } }
+@media (prefers-reduced-motion: reduce) { .bt img, .bt-label i { transition: none; } }
+
 /* Floating WhatsApp button */
 .floats { position: fixed; right: calc(1.25rem + env(safe-area-inset-right, 0px)); bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); z-index: 15; display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; }
 .call-float { position: relative; display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.875rem 1.25rem 0.875rem 1rem; border-radius: 999px; background: #f4a62a; color: #1b1203; font: 700 1rem/1 var(--body); text-decoration: none; box-shadow: 0 0.625rem 1.75rem -0.375rem rgba(200, 120, 10, .55); transition: transform .2s ease, box-shadow .2s ease; }
@@ -348,13 +375,18 @@ footer .wrap { padding-bottom: 9.5rem; }
         <h1 style="margin-top:14px">Everything that holds your <span class="u">tiles</span>, seals your <span class="u">roof</span> and shines your <span class="a">marble</span>.</h1>
         <p class="lede">ChemSolution is a one stop building chemical shop. Tile adhesives, grouts, waterproofing, construction chemicals and marble care, all from one counter, with advice on what your job actually needs.</p>
       </div>
-      <div class="swatches" aria-hidden="true">
-        <div class="ring"></div>
-        <div class="sw s1"><img src="img/marble.jpg?v=48c6865b" alt=""></div>
-        <div class="sw s2"><img src="img/tile-adhesive.jpg?v=213142bf" alt=""></div>
-        <div class="sw s3"><img src="img/waterproofing.jpg?v=a943b448" alt=""></div>
-        <div class="sw s4"><img src="img/construction.jpg?v=fe836c10" alt=""></div>
-        <div class="sw s5"><img src="img/grouts.jpg?v=c9c27598" alt=""></div>
+      <div class="showcase">
+        <div class="bento">
+        <a class="bt b-m" href="#products"><img src="img/marble.jpg?v=48c6865b" alt=""><span class="bt-label"><span><b>Marble Chemicals</b><small>Polish · protect · shine</small></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></i></span></a>
+        <a class="bt b-t" href="#products"><img src="img/tile-adhesive.jpg?v=213142bf" alt=""><span class="bt-label"><span><b>Tile Adhesive</b><small>Floors &amp; walls</small></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></i></span></a>
+        <a class="bt b-w" href="#products"><img src="img/waterproofing.jpg?v=a943b448" alt=""><span class="bt-label"><span><b>Waterproofing</b><small>Roof · bath · tank</small></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></i></span></a>
+        <a class="bt b-g" href="#products"><img src="img/grouts.jpg?v=c9c27598" alt=""><span class="bt-label"><span><b>Grouts</b><small>Tile joints</small></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></i></span></a>
+        <a class="bt b-c" href="#products"><img src="img/construction.jpg?v=fe836c10" alt=""><span class="bt-label"><span><b>Construction Chemicals</b><small>Concrete · plaster · repair</small></span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></i></span></a>
+        </div>
+        <div class="clients">
+          <p class="clients-title">Supplying every kind of builder</p>
+          <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>Home owners</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="10" height="18" rx="1"/><path d="M14 9h6v12h-6"/><path d="M7 7h1M10 7h1M7 11h1M10 11h1M7 15h1M10 15h1"/></svg>Builders</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h18"/><path d="M5 17a7 7 0 0 1 14 0"/><path d="M10 10V6h4v4"/></svg>Contractors</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3"/><path d="M12 6 6 21M12 6l6 15"/><path d="M8 15h8"/><circle cx="12" cy="6" r="1.5"/></svg>Architects &amp; engineers</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4 20 10 11 19H5v-6z"/><path d="M14 4 3 15"/></svg>Masons &amp; tilers</li></ul>
+        </div>
       </div>
     </div>
   </section>
