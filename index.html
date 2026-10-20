@@ -70,7 +70,7 @@ a { color: inherit; }
 /* Header */
 header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(0.625rem); border-bottom: 1px solid var(--line); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.5rem; }
-.brand img { height: 4.25rem; width: auto; display: block; }
+.brand img { height: 4.75rem; width: auto; display: block; }
 .brand .logo-d { display: none; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand .logo-l { display: none; } :root:not([data-theme="light"]) .brand .logo-d { display: block; } }
 :root[data-theme="dark"] .brand .logo-l { display: none; }
@@ -85,7 +85,7 @@ nav.links a:hover { color: var(--ink); }
 .btn-blue { background: var(--blue); color: var(--on-accent); }
 .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 0.0938rem var(--line); }
 .btn svg { width: 1.125rem; height: 1.125rem; flex: none; }
-@media (max-width: 48.75rem) { nav.links { display: none; } .brand img { height: 3rem; } .top .btn { padding: 0.6875rem 0.875rem; font-size: 0.875rem; } }
+@media (max-width: 48.75rem) { nav.links { display: none; } .brand img { height: 3.25rem; } .top .btn { padding: 0.6875rem 0.875rem; font-size: 0.875rem; } }
 
 /* Hero */
 .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; padding-block: 4.5rem 3.5rem; }
@@ -264,7 +264,7 @@ footer .wrap { padding-bottom: 5.5rem; }
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="ChemSolution home"><img class="logo-l" src="img/logo.png" alt="ChemSolution, a one stop building chemical shop"><img class="logo-d" src="img/logo-dark.png" alt="ChemSolution, a one stop building chemical shop"></a>
+    <a class="brand" href="#top" aria-label="ChemSolution home"><img class="logo-l" src="img/logo.svg" alt="ChemSolution, a one stop building chemical shop"><img class="logo-d" src="img/logo-dark.svg" alt="ChemSolution, a one stop building chemical shop"></a>
     <nav class="links" aria-label="Main">
       <a href="#products">Products</a>
       <a href="#sequence">Where they go</a>
