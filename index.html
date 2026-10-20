@@ -319,6 +319,33 @@ footer .credits a { color: inherit; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .map img { filter: brightness(.82) contrast(1.05) saturate(.85); } }
 :root[data-theme="dark"] .map img { filter: brightness(.82) contrast(1.05) saturate(.85); }
 
+/* Contact section: profile card + tile grid */
+.slab .intro h2 { margin-top: 0.625rem; }
+.slab .wrap { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 2.5rem 3.5rem; }
+.md-card { margin-top: 2rem; display: flex; align-items: center; gap: 1.25rem; padding: 1.25rem 1.5rem; border-radius: 1.25rem; background: var(--slab-card); border: 1px solid var(--slab-line); box-shadow: 0 1.25rem 2.5rem -1.75rem rgba(15, 42, 60, .35); max-width: 30rem; }
+.md-avatar { flex: none; width: 4.25rem; height: 4.25rem; border-radius: 50%; display: grid; place-items: center; font: 800 1.375rem/1 var(--display); color: #ffffff; letter-spacing: .02em; background: linear-gradient(135deg, #f4a62a, #e8891a); box-shadow: 0 0 0 0.25rem var(--slab), 0 0 0 0.375rem rgba(244, 166, 42, .45); }
+.md-role { font: 700 0.75rem/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--slab-accent); }
+.md-name { font: 800 1.625rem/1.15 var(--display); letter-spacing: -0.01em; margin-top: 0.375rem; }
+.md-text p { color: var(--slab-muted); font-size: 0.9375rem; margin-top: 0.375rem; }
+.ctiles { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; min-width: 0; }
+.ctile { position: relative; display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; padding: 1.25rem 1.375rem 1.375rem; border-radius: 1.25rem; background: var(--slab-card); border: 1px solid var(--slab-line); box-shadow: 0 1rem 2rem -1.75rem rgba(15, 42, 60, .4); transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.ctile:hover { transform: translateY(-0.1875rem); border-color: rgba(21, 151, 213, .35); box-shadow: 0 1.375rem 2.5rem -1.5rem rgba(15, 42, 60, .45); }
+.ctile.wide { grid-column: 1 / -1; }
+.ctile-top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.875rem; }
+.ctile .ic { width: 2.75rem; height: 2.75rem; border-radius: 0.875rem; display: grid; place-items: center; color: #ffffff; background: linear-gradient(135deg, #17a8dd, #0b6fa3); box-shadow: 0 0.5rem 1rem -0.5rem rgba(11, 111, 163, .6); }
+.ctile .ic svg { width: 1.3125rem; height: 1.3125rem; }
+.ctile .k { font: 700 0.75rem/1.2 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--slab-muted); }
+.ctile .v { font-weight: 600; font-size: 1.0625rem; line-height: 1.45; color: var(--slab-fg); overflow-wrap: anywhere; user-select: all; }
+.ctile .v.big { font: 800 1.5rem/1.2 var(--display); letter-spacing: -0.01em; }
+.ctile .v.mono { font-family: var(--mono); font-weight: 600; letter-spacing: .04em; }
+.ctile a.v.mail { color: var(--slab-fg); text-decoration: none; }
+.ctile a.v.mail:hover { color: var(--slab-accent); text-decoration: underline; }
+.ctile .copy { display: inline-flex; align-items: center; gap: 0.375rem; }
+.ctile .copy svg { width: 0.875rem; height: 0.875rem; }
+@media (max-width: 53.75rem) { .slab .wrap { grid-template-columns: 1fr; } .md-card { max-width: none; } }
+@media (max-width: 30rem) { .ctiles { grid-template-columns: 1fr; } .md-card { padding: 1rem 1.125rem; } .md-name { font-size: 1.375rem; } }
+@media (prefers-reduced-motion: reduce) { .ctile { transition: none; } }
+
 /* Floating WhatsApp button */
 .floats { position: fixed; right: calc(1.25rem + env(safe-area-inset-right, 0px)); bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); z-index: 15; display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; }
 .call-float { position: relative; display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.875rem 1.25rem 0.875rem 1rem; border-radius: 999px; background: #f4a62a; color: #1b1203; font: 700 1rem/1 var(--body); text-decoration: none; box-shadow: 0 0.625rem 1.75rem -0.375rem rgba(200, 120, 10, .55); transition: transform .2s ease, box-shadow .2s ease; }
@@ -528,38 +555,42 @@ footer .wrap { padding-bottom: 9.5rem; }
     <div class="wrap">
       <div class="intro">
         <div class="eyebrow">Visit the shop</div>
-        <h2 style="margin-top:10px">Come to <span>Sivakami Nagar</span>, or just call.</h2>
+        <h2>Come to <span>Sivakami Nagar</span>, or just call.</h2>
         <p>Bring your measurements or a photo of the site. We will help you pick the right chemical and the right quantity.</p>
+        <div class="md-card">
+          <div class="md-avatar" aria-hidden="true">MV</div>
+          <div class="md-text">
+            <div class="md-role">Managing Director</div>
+            <div class="md-name">Muthukumar.V</div>
+            <p>Ask for Muthukumar when you call or visit the shop.</p>
+          </div>
+        </div>
       </div>
-      <div class="cards">
-        <div class="ccard">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
-          <div><div class="k">Managing Director</div><div class="v">Muthukumar.V</div></div>
+      <div class="ctiles">
+        <div class="ctile">
+          <div class="ctile-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div><button class="copy" type="button" data-copy="phone" aria-label="Copy phone number"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy</span></button></div>
+          <div class="k">Phone &amp; WhatsApp</div>
+          <div class="v big" id="phone">081224 47430</div>
         </div>
-        <div class="ccard">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div><div class="k">Address</div><div class="v" id="addr">No.68, 69, Sivakami Nagar, 4th Cross, Reddiarpalayam, Puducherry 605010</div></div>
-          <button class="copy" type="button" data-copy="addr">Copy</button>
+        <div class="ctile">
+          <div class="ctile-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><button class="copy" type="button" data-copy="email" aria-label="Copy email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy</span></button></div>
+          <div class="k">Email</div>
+          <a class="v mail" id="email" href="mailto:chemsolution2023@gmail.com">chemsolution2023@gmail.com</a>
         </div>
-        <div class="ccard">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
-          <div><div class="k">Phone &amp; WhatsApp</div><div class="v" id="phone">081224 47430</div></div>
-          <button class="copy" type="button" data-copy="phone">Copy</button>
+        <div class="ctile wide">
+          <div class="ctile-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div><button class="copy" type="button" data-copy="addr" aria-label="Copy address"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy</span></button></div>
+          <div class="k">Shop address</div>
+          <div class="v" id="addr">No.68, 69, Sivakami Nagar, 4th Cross, Reddiarpalayam, Puducherry 605010</div>
         </div>
-        <div class="ccard">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
-          <div><div class="k">Email</div><a class="v mail" id="email" href="mailto:chemsolution2023@gmail.com">chemsolution2023@gmail.com</a></div>
-          <button class="copy" type="button" data-copy="email">Copy</button>
+        <div class="ctile">
+          <div class="ctile-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><button class="copy" type="button" data-copy="gst" aria-label="Copy GSTIN"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span>Copy</span></button></div>
+          <div class="k">GSTIN</div>
+          <div class="v mono" id="gst">34GRAPD1008Q1ZX</div>
         </div>
-        <div class="ccard">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
-          <div><div class="k">GSTIN</div><div class="v mono" id="gst">34GRAPD1008Q1ZX</div></div>
-          <button class="copy" type="button" data-copy="gst">Copy</button>
-        </div>
-        <div class="ccard">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <div><div class="k">Opening hours</div><div class="v">All 7 days · 9 AM – 8 PM</div></div>
-          <span class="status" data-open-badge>Open 7 days</span>
+        <div class="ctile">
+          <div class="ctile-top"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><span class="status" data-open-badge>Open 7 days</span></div>
+          <div class="k">Opening hours</div>
+          <div class="v">All 7 days · 9 AM – 8 PM</div>
         </div>
       </div>
       <figure class="mapcard">
