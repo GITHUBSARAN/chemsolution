@@ -44,6 +44,11 @@
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Figtree", "Segoe UI", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  /* Dark theme for every visitor (user request): dark values override the light ones above */
+  --bg: #0a1620; --surface: #11222f; --ink: #e6eef4; --muted: #93abbe; --line: #1f3546;
+  --grid: rgba(79, 184, 234, .06); --hex: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2256%22 height=%22100%22 viewBox=%220 0 56 100%22%3E%3Cpath d=%22M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100%22 fill=%22none%22 stroke=%22rgba%2879,184,234,0.08%29%22 stroke-width=%221%22/%3E%3Cg fill=%22rgba%28244,166,42,0.22%29%22%3E%3Ccircle cx=%2228%22 cy=%220%22 r=%221.8%22/%3E%3Ccircle cx=%220%22 cy=%2216%22 r=%221.8%22/%3E%3Ccircle cx=%2256%22 cy=%2216%22 r=%221.8%22/%3E%3Ccircle cx=%220%22 cy=%2250%22 r=%221.8%22/%3E%3Ccircle cx=%2256%22 cy=%2250%22 r=%221.8%22/%3E%3Ccircle cx=%2228%22 cy=%2266%22 r=%221.8%22/%3E%3Ccircle cx=%2228%22 cy=%22100%22 r=%221.8%22/%3E%3C/g%3E%3C/svg%3E"); --glow-a: rgba(244, 166, 42, .10); --glow-b: rgba(79, 184, 234, .10); --art: #4fb8ea; --art-op: .16; --veil: rgba(10, 22, 32, .9); --hero-veil: linear-gradient(90deg, rgba(10, 22, 32, .95) 0%, rgba(10, 22, 32, .86) 42%, rgba(10, 22, 32, .35) 100%); --hero-veil-sm: linear-gradient(180deg, rgba(10, 22, 32, .9), rgba(10, 22, 32, .8)); --blue: #4fb8ea; --blue-deep: #8fd2f2; --amber: #f4a62a; --amber-soft: #2a2414;
+  --on-accent: #0a1620; --slab: #07111a; --slab-fg: #e6eef4; --slab-muted: #8ea6b8;
+  --shadow: 0 1.125rem 2.5rem -18px rgba(0, 0, 0, .6); color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -77,7 +82,7 @@ a { color: inherit; }
 header.top { position: relative; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.5rem; }
 .brand img { height: 7.5rem; width: auto; display: block; }
-.brand .logo-d { display: none; }
+.brand .logo-l { display: none; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand .logo-l { display: none; } :root:not([data-theme="light"]) .brand .logo-d { display: block; } }
 :root[data-theme="dark"] .brand .logo-l { display: none; }
 :root[data-theme="dark"] .brand .logo-d { display: block; }
@@ -147,7 +152,7 @@ section.block .wrap { padding-block: 4.5rem; }
 .stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; counter-reset: st; position: relative; }
 .stage { padding: 0 1.125rem 0 0; position: relative; }
 .stage .dot { width: 2.75rem; height: 2.75rem; border-radius: 50%; display: grid; place-items: center; font: 700 0.9375rem var(--mono); background: var(--surface); color: var(--blue); border: 0.125rem solid var(--blue); position: relative; z-index: 1; }
-.stage:nth-child(even) .dot { color: #8a5a06; border-color: var(--amber); background: var(--amber-soft); }
+.stage:nth-child(even) .dot { color: var(--amber); border-color: var(--amber); background: var(--amber-soft); }
 .stage::before { content: ""; position: absolute; left: 2.75rem; right: 0; top: 1.3125rem; height: 0.125rem; background: repeating-linear-gradient(90deg, var(--line) 0 0.5rem, transparent 0.5rem 0.875rem); }
 .stage:last-child::before { display: none; }
 .stage h3 { font-size: 1.1875rem; font-weight: 700; margin-top: 1rem; }
