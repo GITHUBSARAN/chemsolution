@@ -372,6 +372,35 @@ footer .credits a { color: inherit; }
 @media (max-width: 40rem) { .fix-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fix-result { grid-template-columns: 1fr; } .fix-photo { min-height: 9rem; } .solver { padding: 1.125rem; } }
 @media (prefers-reduced-motion: reduce) { .fix-result { animation: none; } .fix-btn { transition: none; } }
 
+/* Coverage calculator */
+.duo { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; }
+.calc-tabs { display: inline-flex; gap: 0.25rem; margin-top: 1.125rem; padding: 0.3125rem; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); }
+.calc-tab { border: 0; background: transparent; color: var(--muted); font: 700 0.9375rem/1 var(--body); padding: 0.75rem 1.25rem; border-radius: 999px; cursor: pointer; }
+.calc-tab[aria-selected="true"] { background: var(--ink); color: var(--surface); }
+.calc-pane { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.875rem; }
+.crow { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.75rem; align-items: start; padding-bottom: 0.875rem; border-bottom: 1px dashed var(--line); }
+.crow:last-child { border-bottom: 0; padding-bottom: 0; }
+.crow-k { font-weight: 700; font-size: 0.9375rem; padding-top: 1.75rem; }
+.crow-f { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: 0.625rem; min-width: 0; }
+.crow-f .hint, .crow-f .chips { grid-column: 1 / -1; }
+.cfield label { margin-bottom: 0.3125rem; }
+.unit-in { position: relative; }
+.unit-in input { padding-right: 2.5rem; font-variant-numeric: tabular-nums; }
+.unit-in span { position: absolute; right: 0.875rem; top: 50%; transform: translateY(-50%); font-size: 0.8125rem; font-weight: 600; color: var(--muted); pointer-events: none; }
+.hint { font-size: 0.8125rem; color: var(--blue-deep); margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.crow-f > .chips { padding-top: 1.375rem; }
+.chip-btn { border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: 600 0.9375rem/1 var(--body); padding: 0.75rem 1.125rem; border-radius: 0.75rem; cursor: pointer; }
+.chip-btn[aria-pressed="true"] { background: var(--amber-soft); border-color: var(--amber); color: var(--ink); box-shadow: inset 0 0 0 1px var(--amber); }
+.calc-out { margin-top: 1.25rem; padding: 1.25rem; border-radius: 1rem; background: var(--amber-soft); }
+.calc-big { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.625rem; }
+.calc-big .n { font: 800 3rem/1 var(--display); color: var(--ink); font-variant-numeric: tabular-nums; }
+.calc-big .u { font-weight: 700; font-size: 1.0625rem; }
+.calc-detail { font-size: 0.875rem; color: var(--muted); margin-top: 0.5rem; }
+.calc-out .calc-wa { margin-top: 1rem; background: #25d366; color: #ffffff; }
+@media (max-width: 53.75rem) { .duo { grid-template-columns: 1fr; } }
+@media (max-width: 40rem) { .crow { grid-template-columns: 1fr; gap: 0.375rem; } .crow-k { padding-top: 0; } .crow-f > .chips { padding-top: 0; } .calc-big .n { font-size: 2.5rem; } }
+
 /* Floating WhatsApp button */
 .floats { position: fixed; right: calc(1.25rem + env(safe-area-inset-right, 0px)); bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); z-index: 15; display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; }
 .call-float { position: relative; display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.875rem 1.25rem 0.875rem 1rem; border-radius: 999px; background: #f4a62a; color: #1b1203; font: 700 1rem/1 var(--body); text-decoration: none; box-shadow: 0 0.625rem 1.75rem -0.375rem rgba(200, 120, 10, .55); transition: transform .2s ease, box-shadow .2s ease; }
@@ -534,15 +563,34 @@ footer .wrap { padding-bottom: 9.5rem; }
         </div>
       </div>
       <div class="duo">
-        <div class="panel">
-          <h3>Tile adhesive bags</h3>
-          <p>A rough count for floor or wall tiling with a 6 mm notched trowel.</p>
-          <div class="fields">
-            <div><label for="area">Area</label><input id="area" type="number" min="1" step="1" value="500" inputmode="numeric"></div>
-            <div><label for="unit">Unit</label><select id="unit"><option value="sqft">sq ft</option><option value="sqm">sq m</option></select></div>
+        <div class="panel calc">
+          <h3>Coverage calculator</h3>
+          <p>Measure your tiles and floor. We will work out how much you need.</p>
+          <div class="calc-tabs" role="tablist" aria-label="Calculator">
+            <button class="calc-tab" type="button" role="tab" id="tab-adh" aria-controls="pane-adh" aria-selected="true">Tile adhesive</button>
+            <button class="calc-tab" type="button" role="tab" id="tab-grout" aria-controls="pane-grout" aria-selected="false">Grout</button>
           </div>
-          <div class="result" aria-live="polite"><span class="n" id="bags">12</span><span class="u">bags of 20 kg</span></div>
-          <p class="note" id="estNote">About 4.5 kg per sq m, plus 5% extra. Actual use depends on the tile size and the floor level, so confirm with us before buying.</p>
+
+          <div class="calc-pane" id="pane-adh" role="tabpanel" aria-labelledby="tab-adh">
+            <div class="crow"><div class="crow-k">Tile size</div><div class="crow-f"><div class="cfield"><label for="aTL">Length</label><div class="unit-in"><input id="aTL" type="number" min="0" step="1" value="600" inputmode="decimal"><span>mm</span></div></div><div class="cfield"><label for="aTW">Width</label><div class="unit-in"><input id="aTW" type="number" min="0" step="1" value="600" inputmode="decimal"><span>mm</span></div></div></div></div>
+            <div class="crow"><div class="crow-k">Floor size</div><div class="crow-f"><div class="cfield"><label for="aFL">Length</label><div class="unit-in"><input id="aFL" type="number" min="0" step="any" value="20" inputmode="decimal"><span>ft</span></div></div><div class="cfield"><label for="aFW">Width</label><div class="unit-in"><input id="aFW" type="number" min="0" step="any" value="15" inputmode="decimal"><span>ft</span></div></div></div></div>
+            <div class="crow"><div class="crow-k">Adhesive bed</div><div class="crow-f"><div class="cfield"><label for="aT">Thickness</label><div class="unit-in"><input id="aT" type="number" min="0" step="0.5" value="6" inputmode="decimal"><span>mm</span></div></div><p class="hint" id="adhHint">Suggested for this tile: 6 mm</p></div></div>
+            <div class="crow"><div class="crow-k">Bag size</div><div class="crow-f"><div class="chips" role="group" aria-label="Bag size"><button type="button" class="chip-btn" data-bag="20" aria-pressed="true">20 kg</button><button type="button" class="chip-btn" data-bag="50" aria-pressed="false">50 kg</button></div></div></div>
+          </div>
+
+          <div class="calc-pane" id="pane-grout" role="tabpanel" aria-labelledby="tab-grout" hidden>
+            <div class="crow"><div class="crow-k">Grout type</div><div class="crow-f"><div class="chips" role="group" aria-label="Grout type"><button type="button" class="chip-btn" data-grout="1.6" aria-pressed="true">Cement grout</button><button type="button" class="chip-btn" data-grout="1.55" aria-pressed="false">Epoxy grout</button></div></div></div>
+            <div class="crow"><div class="crow-k">Tile size</div><div class="crow-f"><div class="cfield"><label for="gTL">Length</label><div class="unit-in"><input id="gTL" type="number" min="0" step="1" value="600" inputmode="decimal"><span>mm</span></div></div><div class="cfield"><label for="gTW">Width</label><div class="unit-in"><input id="gTW" type="number" min="0" step="1" value="600" inputmode="decimal"><span>mm</span></div></div><div class="cfield"><label for="gTT">Thickness</label><div class="unit-in"><input id="gTT" type="number" min="0" step="0.5" value="9" inputmode="decimal"><span>mm</span></div></div></div></div>
+            <div class="crow"><div class="crow-k">Grout joint</div><div class="crow-f"><div class="cfield"><label for="gJ">Joint size</label><div class="unit-in"><input id="gJ" type="number" min="0" step="0.5" value="3" inputmode="decimal"><span>mm</span></div></div></div></div>
+            <div class="crow"><div class="crow-k">Floor size</div><div class="crow-f"><div class="cfield"><label for="gFL">Length</label><div class="unit-in"><input id="gFL" type="number" min="0" step="any" value="20" inputmode="decimal"><span>ft</span></div></div><div class="cfield"><label for="gFW">Width</label><div class="unit-in"><input id="gFW" type="number" min="0" step="any" value="15" inputmode="decimal"><span>ft</span></div></div></div></div>
+          </div>
+
+          <div class="calc-out" aria-live="polite">
+            <div class="calc-big"><span class="n" id="calcN">–</span><span class="u" id="calcU"></span></div>
+            <p class="calc-detail" id="calcDetail"></p>
+            <a class="btn calc-wa" id="calcWa" href="https://wa.me/918122447430" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg> Send this estimate on WhatsApp</a>
+          </div>
+          <p class="note">Estimates only. Actual use depends on the floor level, trowel, tile back and wastage on site, so confirm with us before buying.</p>
         </div>
 
         <form class="panel" id="enquiry" novalidate>
@@ -665,15 +713,69 @@ footer .wrap { padding-bottom: 9.5rem; }
 (function () {
   var WA = "918122447430";
 
-  // Tile adhesive estimate: ~4.5 kg per sq m with a 6 mm notched trowel, +5% wastage, 20 kg bags
-  var area = document.getElementById("area"), unit = document.getElementById("unit"), bags = document.getElementById("bags");
-  function est() {
-    var a = parseFloat(area.value);
-    if (!(a > 0)) { bags.textContent = "–"; return; }
-    var sqm = unit.value === "sqft" ? a * 0.092903 : a;
-    bags.textContent = Math.ceil(sqm * 4.5 * 1.05 / 20);
+  // Coverage calculator
+  // Adhesive: about 1.5 kg of powder per m2 for every mm of bed, +5% extra.
+  // Grout: kg/m2 = (L + W) / (L x W) x tile thickness x joint width x density (all mm), +10% extra.
+  var SQFT_M2 = 0.092903, calcTab = "adh", bag = 20, groutDensity = 1.6, adhThickTouched = false;
+  function v(id) { var x = parseFloat(document.getElementById(id).value); return x > 0 ? x : 0; }
+  function suggestBed(l, w) { var s = Math.max(l, w); return s <= 300 ? 3 : s <= 600 ? 6 : s <= 900 ? 8 : 10; }
+  function fmt(x, d) { return x.toLocaleString("en-IN", { maximumFractionDigits: d, minimumFractionDigits: d }); }
+  function calc() {
+    var n = "–", u = "", detail = "Enter all the sizes to see the estimate.", msg = "";
+    if (calcTab === "adh") {
+      var tl = v("aTL"), tw = v("aTW"), fl = v("aFL"), fw = v("aFW");
+      var sug = suggestBed(tl, tw);
+      document.getElementById("adhHint").textContent = tl && tw ? "Suggested for this tile: " + sug + " mm" : "";
+      if (!adhThickTouched && tl && tw) document.getElementById("aT").value = sug;
+      var t = v("aT");
+      if (tl && tw && fl && fw && t) {
+        var sqft = fl * fw, m2 = sqft * SQFT_M2, kgm2 = 1.5 * t, kg = m2 * kgm2 * 1.05, bags = Math.ceil(kg / bag);
+        n = bags; u = (bags === 1 ? "bag" : "bags") + " of " + bag + " kg";
+        detail = fmt(sqft, 0) + " sq ft (" + fmt(m2, 1) + " m²) · about " + fmt(kgm2, 1) + " kg per m² at " + t + " mm · " + fmt(kg, 0) + " kg including 5% extra";
+        msg = "Tile adhesive estimate: tile " + tl + " x " + tw + " mm, floor " + fl + " x " + fw + " ft (" + fmt(sqft, 0) + " sq ft), bed " + t + " mm. About " + bags + " bags of " + bag + " kg.";
+      }
+    } else {
+      var L = v("gTL"), W = v("gTW"), T = v("gTT"), J = v("gJ"), gfl = v("gFL"), gfw = v("gFW");
+      if (L && W && T && J && gfl && gfw) {
+        var gsqft = gfl * gfw, gm2 = gsqft * SQFT_M2, perM2 = (L + W) / (L * W) * T * J * groutDensity, total = perM2 * gm2 * 1.1;
+        var shown = total < 10 ? Math.ceil(total * 2) / 2 : Math.ceil(total);
+        n = fmt(shown, shown % 1 ? 1 : 0); u = "kg of " + (groutDensity === 1.6 ? "cement grout" : "epoxy grout");
+        detail = fmt(gsqft, 0) + " sq ft (" + fmt(gm2, 1) + " m²) · about " + fmt(perM2, 2) + " kg per m² · includes 10% extra";
+        msg = "Grout estimate (" + (groutDensity === 1.6 ? "cement" : "epoxy") + "): tile " + L + " x " + W + " x " + T + " mm, joint " + J + " mm, floor " + gfl + " x " + gfw + " ft (" + fmt(gsqft, 0) + " sq ft). About " + n + " kg.";
+      }
+    }
+    document.getElementById("calcN").textContent = n;
+    document.getElementById("calcU").textContent = u;
+    document.getElementById("calcDetail").textContent = detail;
+    document.getElementById("calcWa").href = "https://wa.me/" + WA + "?text=" + encodeURIComponent("Hello ChemSolution, " + (msg || "I need help working out quantities.") + " Please share the price.");
   }
-  area.addEventListener("input", est); unit.addEventListener("change", est); est();
+  document.querySelectorAll(".calc input").forEach(function (el) {
+    el.addEventListener("input", function () { if (el.id === "aT") adhThickTouched = true; calc(); });
+  });
+  document.querySelectorAll(".calc-tab").forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      calcTab = tab.id === "tab-adh" ? "adh" : "grout";
+      document.querySelectorAll(".calc-tab").forEach(function (t) { t.setAttribute("aria-selected", t === tab ? "true" : "false"); });
+      document.getElementById("pane-adh").hidden = calcTab !== "adh";
+      document.getElementById("pane-grout").hidden = calcTab !== "grout";
+      calc();
+    });
+  });
+  document.querySelectorAll("[data-bag]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      bag = +b.dataset.bag;
+      document.querySelectorAll("[data-bag]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      calc();
+    });
+  });
+  document.querySelectorAll("[data-grout]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      groutDensity = +b.dataset.grout;
+      document.querySelectorAll("[data-grout]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      calc();
+    });
+  });
+  calc();
 
   // Enquiry: keep the WhatsApp link's message in sync with the form
   var name = document.getElementById("name"), prod = document.getElementById("prod"), msg = document.getElementById("msg"), send = document.getElementById("waSend");
