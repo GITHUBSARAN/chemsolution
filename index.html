@@ -59,7 +59,6 @@ body {
   background-size: 2rem 2rem;
   color: var(--ink); font-family: var(--body); font-size: 1rem; line-height: 1.6;
 }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
 .wrap { max-width: 140rem; margin: 0 auto; padding-left: max(clamp(1rem, 4vw, 6rem), env(safe-area-inset-left, 0px)); padding-right: max(clamp(1rem, 4vw, 6rem), env(safe-area-inset-right, 0px)); }
 h1, h2, h3 { font-family: var(--display); line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -.02em; }
 p { margin: 0; }
@@ -68,7 +67,7 @@ a { color: inherit; }
 .eyebrow { font-family: var(--mono); font-size: 0.75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--blue); }
 
 /* Header */
-header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(0.625rem); border-bottom: 1px solid var(--line); }
+header.top { position: relative; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.5rem; }
 .brand img { height: 7.5rem; width: auto; display: block; }
 .brand .logo-d { display: none; }
